@@ -23,7 +23,7 @@ FORMAT = pyaudio.paInt16
 CHANNELS = 2
 RATE = SAMPLE_RATE
 RECORD_SECONDS = AUDIO_DURATION
-WAVE_OUTPUT_FILENAME = os.path.join(AUDIO_PATH,'./output.wav')
+WAVE_OUTPUT_FILENAME = os.path.join(AUDIO_PATH, './output.wav')
 
 if not os.path.exists(AUDIO_PATH):
     os.mkdir(AUDIO_PATH)

@@ -33,11 +33,12 @@ def load_audio_signal():
     gets audio from AUDIO_PATH and return its mel spectrogram
     :return: mel spectrogram
     """
-    audio, sample_rate = librosa.load(cfg.AUDIO_PATH, duration=cfg.AUDIO_DURATION, offset=0.5, sr=cfg.SAMPLE_RATE)
+    audio, sample_rate = librosa.load(cfg.WAVE_OUTPUT_FILENAME, duration=cfg.AUDIO_DURATION, offset=0.5, sr=cfg.SAMPLE_RATE)
     signal = np.zeros((int(cfg.SAMPLE_RATE * 3, )))
     signal[:len(audio)] = audio
     mel_spectrogram = getMELspectrogram(signal, sample_rate=cfg.SAMPLE_RATE)
 
+    # print("Mel spectogram shape", mel_spectrogram.shape)
     return mel_spectrogram
 
 def get_mic_audio():
@@ -75,4 +76,4 @@ def get_mic_audio():
 def delete_audio():
 
     if os.path.exists(cfg.AUDIO_PATH):
-        os.remove(cfg.AUDIO_PATH)
+        os.remove(cfg.WAVE_OUTPUT_FILENAME)
