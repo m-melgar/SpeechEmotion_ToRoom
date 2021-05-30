@@ -1,8 +1,9 @@
 """"
 reference: https://github.com/Data-Science-kosta/Speech-Emotion-Classification-with-PyTorch
 """
-import torch
 import keyboard
+import torch
+
 import config as cfg
 import engine
 from model import ParallelModel
