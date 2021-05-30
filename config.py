@@ -1,6 +1,13 @@
 import os
 
 import pyaudio
+"""
+install pyaudio:
+sudo apt-get install libasound-dev portaudio19-dev libportaudio2 libportaudiocpp0
+sudo apt-get install ffmpeg libav-tools
+sudo pip install pyaudio
+
+"""
 
 EMOTIONS = {1:'neutral', 2:'calm', 3:'happy', 4:'sad', 5:'angry', 6:'fear', 7:'disgust', 0:'surprise'}
 EMOTION_COLOR = {'neutral':0xffffff, 'calm':0xc4e1e7, 'happy':0xfff600, 'sad':0x666666, 'angry':0xe31616, 'fear':0x000000, 'disgust':0x32cd32, 'surprise':0xf58729}
