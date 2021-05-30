@@ -26,6 +26,7 @@ RECORD_SECONDS = AUDIO_DURATION
 WAVE_OUTPUT_FILENAME = os.path.join(AUDIO_PATH,'./output.wav')
 
 if not os.path.exists(AUDIO_PATH):
+    os.mkdir(AUDIO_PATH)
     print(f'Creating audio folder {AUDIO_PATH} 🎤')
 
 
