@@ -1,6 +1,7 @@
 import os
 import wave
 
+import cv2
 import librosa
 import numpy as np
 import pyaudio
@@ -77,3 +78,20 @@ def delete_audio():
 
     if os.path.exists(cfg.AUDIO_PATH):
         os.remove(cfg.WAVE_OUTPUT_FILENAME)
+
+def create_color(width = 200, height = 200, rgb_color=(0, 0, 0)):
+    """Create new image(numpy array) filled with certain color in RGB"""
+    # Create black blank image
+    image = np.zeros((height, width, 3), np.uint8)
+
+    # Since OpenCV uses BGR, convert the color first
+    color = tuple(reversed(rgb_color))
+    # Fill image with color
+    image[:] = color
+
+    return image
+
+def colored_window(rgbcolor):
+
+    color_array = create_color(rgbcolor)
+    cv2.imshow(color_array)

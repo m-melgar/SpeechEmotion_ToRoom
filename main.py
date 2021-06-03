@@ -1,6 +1,7 @@
 """"
 reference: https://github.com/Data-Science-kosta/Speech-Emotion-Classification-with-PyTorch
 """
+import cv2
 import keyboard
 import torch
 
@@ -21,7 +22,10 @@ def inference():
     print(
         f'Predictions:{predictions} Predicted emotion: {cfg.EMOTIONS[predictions.item()]} Predicted color: {cfg.EMOTION_COLOR[cfg.EMOTIONS[predictions.item()]]}')
 
-    engine.delete_audio()
+    engine.delete_audio(cfg.EMOTION_COLOR[cfg.EMOTIONS[predictions.item()]])
+    engine.colored_window()
+
+
 
 
 if __name__ == '__main__':
@@ -39,3 +43,5 @@ if __name__ == '__main__':
     while True:
         keyboard.add_hotkey('r', inference())
         keyboard.wait()  # wait forever
+        cv2.destroyAllWindows()
+    # TODO add requirements
