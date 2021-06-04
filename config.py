@@ -27,6 +27,9 @@ RATE = SAMPLE_RATE
 RECORD_SECONDS = AUDIO_DURATION
 WAVE_OUTPUT_FILENAME = os.path.join(AUDIO_PATH, './output.wav')
 
+WINDOW_W = 200
+WINDOW_H = 200
+
 if not os.path.exists(AUDIO_PATH):
     os.mkdir(AUDIO_PATH)
     print(f'Creating audio folder {AUDIO_PATH} 🎤')
