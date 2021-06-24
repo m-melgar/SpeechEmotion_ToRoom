@@ -2,7 +2,6 @@
 reference: https://github.com/Data-Science-kosta/Speech-Emotion-Classification-with-PyTorch
 """
 import cv2
-import keyboard
 import torch
 
 import config as cfg
@@ -26,8 +25,6 @@ def inference():
     engine.colored_window(cfg.EMOTION_COLOR[cfg.EMOTIONS[predictions.item()]])
 
 
-
-
 if __name__ == '__main__':
 
     # SETUP
@@ -41,6 +38,8 @@ if __name__ == '__main__':
     model.eval()
 
     while True:
-        keyboard.add_hotkey('r', inference())
-        keyboard.wait()  # wait forever
+        inference()
+        cv2.waitKey(0)
+        # keyboard.add_hotkey('r', inference())
+        # keyboard.wait()  # wait forever
         cv2.destroyAllWindows()

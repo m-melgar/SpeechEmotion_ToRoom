@@ -80,13 +80,13 @@ def delete_audio():
         os.remove(cfg.WAVE_OUTPUT_FILENAME)
 
 
-def create_color(width=cfg.WINDOW_W, height=cfg.WINDOW_H, rgb_color=(0, 0, 0)):
+def create_color(rgb_color=(0, 0, 0), width=cfg.WINDOW_W, height=cfg.WINDOW_H):
     """Create new image(numpy array) filled with certain color in RGB"""
     # Create black blank image
-    image = np.zeros((height, width, 3), np.uint8)
+    image = np.zeros((height, width, 3), dtype=np.int8)
 
     # Since OpenCV uses BGR, convert the color first
-    color = tuple(reversed(rgb_color))
+    color = tuple(rgb_color)
     # Fill image with color
     image[:] = color
 
@@ -94,5 +94,5 @@ def create_color(width=cfg.WINDOW_W, height=cfg.WINDOW_H, rgb_color=(0, 0, 0)):
 
 
 def colored_window(rgbcolor):
-    color_array = create_color(rgbcolor)
-    cv2.imshow(color_array)
+    color_array = create_color(rgb_color=rgbcolor)
+    cv2.imshow("emotion", color_array)
