@@ -9,12 +9,16 @@ import pyaudio
 import config as cfg
 
 
-def getMELspectrogram(audio, sample_rate):
+def getMELspectrogram(audio: np.ndarray, sample_rate: int) -> np.ndarray:
     """
-    retuns mel spectogram
-    :param audio:
-    :param sample_rate:
-    :return:
+    Computes mel spectrogram from audio np.ndarray
+
+    :param audio: np.ndarray
+                Audio section
+    :param sample_rate: int
+                sample rate for mel spectrogram
+    :return: np.ndarray
+                mel spectrogram
     """
     mel_spec = librosa.feature.melspectrogram(y=audio,
                                               sr=sample_rate,
@@ -29,10 +33,11 @@ def getMELspectrogram(audio, sample_rate):
     return mel_spec_db
 
 
-def load_audio_signal():
+def load_audio_signal() -> np.ndarray:
     """
-    gets audio from AUDIO_PATH and return its mel spectrogram
-    :return: mel spectrogram
+    Computes mel spectrogram from AUDIO_OPATH
+    :return: np.ndarray
+            mel spectrogram from AUDIO_PATH
     """
     audio, sample_rate = librosa.load(cfg.WAVE_OUTPUT_FILENAME, duration=cfg.AUDIO_DURATION, offset=0.5,
                                       sr=cfg.SAMPLE_RATE)
@@ -44,7 +49,10 @@ def load_audio_signal():
     return mel_spectrogram
 
 
-def get_mic_audio():
+def get_mic_audio() -> None:
+    """
+    Records audio from microphone and stores it at WAVE_OUTPUT_FILENAME
+    """
     p = pyaudio.PyAudio()
 
     stream = p.open(format=cfg.FORMAT,
@@ -67,21 +75,42 @@ def get_mic_audio():
     stream.close()
     p.terminate()
 
-    wf = wave.open(cfg.WAVE_OUTPUT_FILENAME, 'wb')
-    wf.setnchannels(cfg.CHANNELS)
-    wf.setsampwidth(p.get_sample_size(cfg.FORMAT))
-    wf.setframerate(cfg.RATE)
-    wf.writeframes(b''.join(frames))
-    wf.close()
+    with wave.open(cfg.WAVE_OUTPUT_FILENAME, 'wb') as wf:
+        wf.setnchannels(cfg.CHANNELS)
+        wf.setsampwidth(p.get_sample_size(cfg.FORMAT))
+        wf.setframerate(cfg.RATE)
+        wf.writeframes(b''.join(frames))
+
+    # wf = wave.open(cfg.WAVE_OUTPUT_FILENAME, 'wb')
+    # wf.setnchannels(cfg.CHANNELS)
+    # wf.setsampwidth(p.get_sample_size(cfg.FORMAT))
+    # wf.setframerate(cfg.RATE)
+    # wf.writeframes(b''.join(frames))
+    # wf.close()
 
 
-def delete_audio():
+def delete_audio() -> None:
+    """
+    Deletes audio at WAVE_OUTPUT_FILENAME
+    """
     if os.path.exists(cfg.AUDIO_PATH):
         os.remove(cfg.WAVE_OUTPUT_FILENAME)
 
 
-def create_color(rgb_color=(0, 0, 0), width=cfg.WINDOW_W, height=cfg.WINDOW_H):
-    """Create new image(numpy array) filled with certain color in RGB"""
+def create_color(rgb_color: tuple[int, int, int] = (0, 0, 0),
+                 width: int = cfg.WINDOW_W,
+                 height: int = cfg.WINDOW_H) -> np.ndarray:
+    """Create new image(numpy array) filled with certain color in RGB
+
+    :param rgb_color: tuple[int, int, int]
+                tuple representing an RGB color value
+    :param width: int
+                width of image array
+    :param height: int
+                height of image array
+    :return: np.ndarray
+                image array filled with solid color
+    """
     # Create black blank image
     image = np.zeros((height, width, 3), dtype=np.int8)
 
@@ -93,6 +122,9 @@ def create_color(rgb_color=(0, 0, 0), width=cfg.WINDOW_W, height=cfg.WINDOW_H):
     return image
 
 
-def colored_window(rgbcolor):
+def colored_window(rgbcolor: tuple[int, int, int]) -> None:
+    """
+    Displays rgbcolor with CV2
+    """
     color_array = create_color(rgb_color=rgbcolor)
     cv2.imshow("emotion", color_array)
